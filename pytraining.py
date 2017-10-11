@@ -175,8 +175,51 @@ def f(n):
             
 f(n)
 
+#猴子吃桃
+l = []
+n = 1
+for i in range(1,10):
+    n = (n+1)*2
+    l.append(n)
+print (n,l)
+    
+#打印出如下图案（菱形）:
+#第一种方法 
+for i in range(4):
+    print((3-i)*' '+(2*i+1)*'*')
+for i in range(3):
+    print((i+1)*' '+(5-2*i)*'*')
+#第二种方法
+n = int(input("请输入行数 n："))
+for i in range(0,n):
+    a = abs(i - int(n/2))
+    b = n - abs(i - int(n/2))
+    print(" "*a+"*"*(b-a))    
+#第三种方法
+n = int(input("请输入行数 n："))
+for i in range(0,n):
+    a = abs(i-int(n/2))
+    b = n-2*a
+    print (a*' '+b*'*')
 
-
+    
+#有一分数序列：2/1，3/2，5/3，8/5，13/8，21/13...求出这个数列的前20项之和。
+n = int(input('请输入第几项：'))
+print ('')
+a = 2
+b = 1
+sum = 0
+l = []
+for i in range(0,n):
+    sum+=((a/b))
+    l.append((a/b))
+    t = a
+    a = a+b
+    b = t
+      
+print ('前%d项之和为%f' % (n,sum))
+print (l)
+    
 
 
 
