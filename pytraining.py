@@ -221,6 +221,34 @@ print ('前%d项之和为%f' % (n,sum))
 print (l)
     
 
+#例25 求1+2!+3!+...+20!的和
+n = int(input('输入一个数字：'))
+l = []
+for i in range(1,n+1):
+    S = 1
+    for j in range(1,i+1):
+        S = S*j
+    l.append(int(S))
+    
+sum(l)
+
+#例26 求n!
+#方法一
+n = int(input('输入一个数字：'))
+S = 1
+for i in range(1,n+1):
+    S = S*i
+print (S)
+#方法二
+def f(n):
+    sum = 0
+    if n == 0:
+        sum = 1
+    else :
+        sum = n*f(n-1)
+        
+    return sum 
+
 
 
 
