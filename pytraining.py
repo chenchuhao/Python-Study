@@ -249,12 +249,56 @@ def f(n):
         
     return sum 
 
+#例27 利用递归函数调用方式，将所输入的5个字符，以相反顺序打印出来。
+a = input('请输入一个字符：')
+for i in range(1,int(len(a))+1):
+    print (a[-i])
 
+#例28 
+def f(n):
+    Age_n = 10
+    for i in range(0,n-1):
+        Age_n +=2
+    return Age_n
 
+# 例29 给一个不多于5位的正整数，要求：一、求它是几位数，二、逆序打印出各位数字。
+def y(n):
+    global Num
+    try:
+        Num = int(input('请输入一个不多于5位的正整数：'))
+    except ValueError:
+        print ('Warning：请输入一个整数！！！')
+        y(n)
+y(1)        
 
+def f(n):
+    global Num
+    if len(str(Num))>5:
+        print ('Warning!!!输入整数长度有问题，请重新输入！')
+        Num = int(input('输入的整数为：'))
+        f(n)
+    else :
+        a = len(str(Num))
+        print ('它是%d位数' % a)
+        print ('逆序打印出各位数字:',end = '')
+        for i in range(1,a+1):
+            print (str(Num)[-i],end = ',')        
+f(1)
 
+#例30 输入一个5位数，判断它是不是回文数。即12321是回文数，个位与万位相同，十位与千位相同
+n = input('输入一个整数：')
+for i in range(1,int((len(n)/2))+1):
+    a = 0
+    if n[i-1] == n[-i]:
+        a = 1
+if a == 1 :
+    print ('%d是一个回文数' % int(n))
+else :
+    print ('%d不是一个回文数' % int(n))
 
-
-
+#例33 按逗号分隔列表。
+L = [1,2,3,4,5]
+s = ','.join(str(n) for n in L)
+print (s)
 
 
