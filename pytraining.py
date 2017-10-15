@@ -301,4 +301,114 @@ L = [1,2,3,4,5]
 s = ','.join(str(n) for n in L)
 print (s)
 
+#例35 定义字体颜色
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+#例36 求100以内的所有素数（质数）
+lower = int(input('输入区间最小值：'))
+upper = int(input('输入区间最大值：'))
+for num in range(lower,upper):
+    if num>1:
+        for i in range(2,int(num/2)):
+            if num % i == 0:
+                break
+        else:#如果for循环未被break终止，则执行else块中的语句
+            print (num)
+
+#例38 求一个3*3矩阵对角线元素之和
+a = []
+sum = 0
+for i in range(3):
+    a.append([])
+    for j in range(3):
+        n = float((input('请输入一个数：')))
+        a[i].append(n)
+    sum +=a[i][i]
+print (sum)
+
+    
+#例39 有一个已经排好序的数组。现输入一个数，要求按原来的规律将它插入数组中
+l = [1,2,3,4,5,6,7]
+l.append(int(input('请输入一个数字')))
+
+if l[1]>l[-2]:
+    l.sort(reverse=True)
+else:
+    l.sort()
+#例41 静态变量
+def varfunc():
+    var = 0
+    print ('var = %d' % var)
+    var += 1
+if __name__ == '__main__':
+    for i in range(3):
+        varfunc()
+#作为类的属性    
+class Static:
+    StaticVar = 5
+    def varfunc(self):
+        self.StaticVar+=1
+        print (self.StaticVar)
+        
+print (Static.StaticVar)
+
+a = Static()
+for i in range(3):
+    a.varfunc()
+
+#例44 两个 3 行 3 列的矩阵，实现其对应位置的数据相加，并返回一个新矩阵
+X = [[12,7,3],
+    [4,5,6],
+    [7,8,9]]
+
+Y = [[5,8,1],
+    [6,7,3],
+    [4,5,9]]
+l =[]
+for i in range(3):
+    l.append([])
+    for j in range(3):
+        l[i].append(X[i][j]+Y[i][j])
+print (l)
+
+#例45 统计1--100之和
+import datetime
+min = int(input('输入最小的一个数\n'))
+max = int(input('输入最大的一个数\n'))
+sum = 0
+begin = datetime.datetime.now()
+for i in range(min,max+1):
+    sum+=i
+print (sum)
+end = datetime.datetime.now()
+print (end-begin)
+
+#例46 求输入数字的平方，如果平方运算后小于 50 则退出。
+Num = int(input('请输入一个数：'))
+def f(n):
+    print(n**2)
+
+while Num**2<50:
+    f(Num)
+    Num = int(input('请继续输入一个数：'))
+else :
+    f(Num)
+    
+#例47 两个变量值互换
+a = int(input("请输入a变量的值: "))
+b = int(input("请输入b变量的值: "))
+c = a
+a = b
+b = c
+print ('a = %d,b = %d' % (a,b))
+
+
 
