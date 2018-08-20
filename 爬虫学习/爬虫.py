@@ -105,11 +105,11 @@ soup = BeautifulSoup(pag_info,'html.parser')
 print (soup.prettify)
 titles = soup.find_all('a','title')## 查找所有a标签中class='title'的语句
 # 打印查找到的每一个a标签的string和文章链接 
-    for title in titles: 
-        print(title.string) 
-        print("http://www.jianshu.com" + title.get('href'))   
+for title in titles: 
+    print(title.string) 
+    print("http://www.jianshu.com" + title.get('href'))   
 #open()是读写文件的函数,with语句会自动close()已打开文件  
-with open(r'C:\Users\lenovo\Desktop\temp\titles.txt','a+') as file :
+with open(r'C:\Users\lenovo\Desktop\temp\titles.txt','a+',encoding = 'utf-8') as file :
     for title in titles:
         file.write(title.string+'\n')
         file.write("http://www.jianshu.com" +title.get('href')+'\n\n')
@@ -127,7 +127,7 @@ url = "https://www.zhihu.com/question/22918070"
 #url = "http://www.mzitu.com/all"
 html = request.urlopen(url).read().decode('utf-8')
 soup = BeautifulSoup(html,'html.parser')
-#用Beautiful Soup结合正则表达式来提取包含所有图片链接（img标签中，class=**，以.jpg结尾的链接）的语句  
+#用Beautiful Soup结合正则表达式来提取包含所有图片链接（img标签中，class="origin_image zh-lightbox-thumb"，以.jpg结尾的链接）的语句  
 links = soup.find_all('img',"origin_image zh-lightbox-thumb",src = re.compile('.jpg$'))
 # 设置保存图片的路径，否则会保存到程序当前路径  
 path = r'C:\Users\lenovo\Desktop\temp\spider_picture'   #路径前的r是保持字符串原始值的意思，就是说不对其中的符号
