@@ -18,7 +18,8 @@ from urllib import request
 from urllib import parse
 import re
 import time
-
+import datetime
+import random
 html = urlopen("http://pythonscraping.com/pages/page1.html")
 bsObj = BeautifulSoup(html.read().decode('utf-8'),'html.parser')
 bsObj.h1
@@ -106,7 +107,10 @@ for name in namelist:
 #2.2.3　导航树
 html = urlopen("http://www.pythonscraping.com/pages/page3.html")
 bsObj = BeautifulSoup(html.read().decode('utf-8'),"html.parser")
-bsObj.tag.subTag.anotherSubTag
+try：
+    bsObj.tag.subTag.anotherSubTag
+except:
+    pass
 
 """
 孩子（child）和后代（descendant）有显著的
@@ -125,21 +129,46 @@ bsObj.tag.subTag.anotherSubTag
 bsObj.div.find_all('img')
 #返回list[0]
 bsObj.div.find('img')
-for child in bsObj.find('table',{'id':'giftList'}).children:#子标签
+#子标签
+for child in bsObj.find('table',{'id':'giftList'}).children:
     print (child)
-    
-for sibling in bsObj.find('table',{'id':'giftList'}).tr.next_siblings:#兄弟标签
+#兄弟标签 ,跳过标题h   
+for sibling in bsObj.find('table',{'id':'giftList'}).tr.next_siblings:
     print (sibling)
+#找到一组兄弟标签中的最后一个标签， 那么previous_siblings 函数也会很有用。
+#还next_sibling和previous_sibling函数，
+#next_siblings和previous_siblings的作用类似，只是它们返回的是单个标签，而不是一组标签。
 
+#父标签parent
 print (bsObj.find('img',{'src':'../img/gifts/img4.jpg'}).parent.previous_sibling.get_text())
 
-#正则表达式
+
+
+
+
+#2.4　正则表达式和beautifulSoup
 images = bsObj.find_all('img',{'src':re.compile('\.\./img/gifts/img[0-9]+\.jpg')})
 for image in images :
     print (image)
     
 
-#维基百科
+#2.5　获取属性
+#查找标签对象的属性
+#myTag.attrs
+bsObj.table.attrs
+
+
+#2.6　Lambda表达式
+bsObj.find(lambda tag :len(tag.attrs)==2)
+
+
+
+
+
+
+###########第3章 开始采集###############
+#3.1 遍历单个域名   
+#获取词条链接list  维基百科
 html = urlopen("http://en.wikipedia.org/wiki/Kevin_Bacon")
 bsObj = BeautifulSoup(html)
 for link in bsObj.find_all('a'):
@@ -151,9 +180,21 @@ for link in bsObj.find('div',{'id':'bodyContent'}).find_all('a',
                       href=re.compile("^(/wiki/)((?!:).)*$")):
     if 'href' in link.attrs:
         links.append('https://en.wikipedia.org/'+link.attrs['href'])
+"""
+links2 = []
+for link2 in bsObj.find_all('a',href=re.compile("^(/wiki/)((?!:).)*$")):
+    if 'href' in link2.attrs:
+        links2.append('https://en.wikipedia.org/'+link2.attrs['href'])
+"""
+#遍历页面
+random.seed(datetime.datetime.now())
 
 
-#采集整个网站数据，set去重
+
+
+
+
+#3.2采集整个网站数据，set去重
 pages = set()
 def getLinks(pageUrl):
     global pages
