@@ -4,9 +4,14 @@ Created on Fri Apr 13 22:26:15 2018
 
 @author: lenovo
 """
+
 from bs4 import BeautifulSoup
+from urllib.request import urlopen
+from urllib.request import HTTPError
+import requests
 #import beautifulsoup4
 import urllib.request
+from urllib.parse import urlparse
 import sqlalchemy
 import pandas as pd
 import time
@@ -15,8 +20,10 @@ from urllib import request
 from urllib import parse
 import re
 import time
-from urllib.request import urlopen
-
+import datetime
+import random
+import scrapy
+import json
 
 #url = "https://www.zhihu.com/question/22918070"
 url = "http://www.mzitu.com/all"
@@ -89,10 +96,13 @@ getallUrl(getHtml(src))
 
 #############################测试爬取一张主页
 ######后记：草鱼反爬虫  请勿盗链
-url = "http://www.mzitu.com/"
-html = urlopen(url)
+headers = {'User-Agent':"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1"}
+req = request.Request("http://www.mzitu.com/",headers = headers)
+html = urlopen(req)
 bsObj = BeautifulSoup(html,'html.parser')
+list_img = set()
 for picture in  bsObj.find('div',class_="postlist").find_all('img'):
+    list_img.add(picture.attrs['src'])
     request.urlretrieve(picture.attrs['src'],path+'\%s.jpg' % time.time())
     print (picture)
 
